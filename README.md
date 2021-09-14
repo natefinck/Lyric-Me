@@ -2,7 +2,7 @@
 
 React app that works with the Spotify API to display the lyrics to the user's currently playing song. 
 
-##Instructions
+## Instructions
 
 * Clone repository
 * run ```npm install``` to install dependencies
