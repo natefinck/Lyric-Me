@@ -1,11 +1,14 @@
 
+const path = require('path');
 const axios = require('axios');
 const btoa = require('btoa');
 var express = require('express'); // Express web server framework
 var cors = require('cors')
 const app  = express();
+const port = process.env.PORT || 5000;
 
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'build')));
 
   //API values
   var client_id = '7cbf9eb28a4e4c10b9faedb31c1344a0'; // Your client id
@@ -16,7 +19,6 @@ app.use(cors());
 
 
 app.post('/lyrics', async (req, res) => {
-  // console.log('got here');
 
   var track = "";
   var artist = "";
@@ -33,7 +35,6 @@ app.post('/lyrics', async (req, res) => {
     })
       access_token = accessTokenRequest.data.access_token;
       refresh_token = accessTokenRequest.data.refresh_token;
-      // console.log(access_token);
   } catch(err) {
     console.log("error on token request");
   }
@@ -63,47 +64,14 @@ app.post('/lyrics', async (req, res) => {
   }
 
   res.send({success: true, nate: true, track: track, artist: artist, lyrics: lyrics});
-
-
-
-
-// useEffect(() => {
-  // N2NiZjllYjI4YTRlNGMxMGI5ZmFlZGIzMWMxMzQ0YTA6MGFiMWYwOTkzNDI3NDI0Y2E0NmMzMzZmYmY5OThiNDY=
-  // axios('https://accounts.spotify.com/api/token', {
-  //   headers: {
-  //     'Content-Type': 'application/x-www-form-urlencoded',
-  //     'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret)
-  //   },
-  //   data: 'grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=' + redirect_uri,
-  //   method: 'POST'
-  // })
-  // .then(tokenResponse => {
-  //   access_token = tokenResponse.data.access_token;
-  //   refresh_token = tokenResponse.data.refresh_token;
-
-  //   axios('https://api.spotify.com/v1/me/player/currently-playing', {
-  //     headers: {
-  //       'Authorization': 'Bearer ' + access_token
-  //     },
-  //     method: 'GET'
-  //   }).then(songResponse => {
-  //     this.track = songResponse.data.item.name;
-  //     this.artist = songResponse.data.item.artists[0].name;
-  //     // console.log(songResponse.data.item.name + " by " + songResponse.data.item.artists[0].name);
-
-  //     axios('https://api.lyrics.ovh/v1/' + songResponse.data.item.artists[0].name + '/' + songResponse.data.item.name, {
-  //     }).then(lyricsResponse => {
-  //       console.log(lyricsResponse.data.lyrics);
-  //       this.lyrics = lyricsResponse.data.lyrics;
-  //       console.log(lyrics);
-  //     })
-  //   })
-  // });
 }, []);
 
-app.listen(3001, () => {
-    console.log("Server listening on port 3001");
-})
+//serving react and my server on the same port
+app.use('/static', express.static(path.join(__dirname, '..', 'build', 'static')));
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
-// app.use(express.static(path.join(__dirname, '../../build')));
-// app.use(express.static(path.join(__dirname, '../../public')));
+app.get('*', (req, res) => res.sendFile('index.html', { root: path.join(__dirname, '..', 'build') }));
+
+app.listen(port, () => {
+  console.log('Server listening on port ' + port);
+});
