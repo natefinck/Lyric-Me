@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'build')));
   //API values
   var client_id = '7cbf9eb28a4e4c10b9faedb31c1344a0'; // Your client id
   var client_secret = '0ab1f0993427424ca46c336fbf998b46'; // Your secret
-  var redirect_uri = 'http://localhost:3000/lyrics'; // Where the user is redirected after authorization
+  var redirect_uri = 'https://lyricme.herokuapp.com/lyrics'; // Where the user is redirected after authorization
   var access_token = ""; 
   var refresh_token = "";
 

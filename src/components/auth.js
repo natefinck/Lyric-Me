@@ -49,7 +49,7 @@ function App() {
 
   var client_id = '7cbf9eb28a4e4c10b9faedb31c1344a0'; // Your client id
   var client_secret = '0ab1f0993427424ca46c336fbf998b46'; // Your secret
-  var redirect_uri = 'http://localhost:3000/lyrics'; // Your redirect uri
+  var redirect_uri = 'https://lyricme.herokuapp.com/lyrics'; // Your redirect uri
 
   var stateKey = 'spotify_auth_state';
   var scope = 'user-read-private user-read-email user-read-currently-playing';

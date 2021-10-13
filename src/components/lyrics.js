@@ -21,7 +21,7 @@ const App = () => {
   };
   var songData = null;
   async function getSongData(){
-    const response = await fetch('http://localhost:3001/lyrics?code=' + code, requestOptions);
+    const response = await fetch('/lyrics?code=' + code, requestOptions);
     songData = await response.json();
     console.log(songData);
     setLoading(false);
