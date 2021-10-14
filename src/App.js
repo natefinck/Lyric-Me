@@ -8,6 +8,7 @@ import logo from './img/ColorFull.png';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
+  document.title = 'Lyric Me';
   return (
     <BrowserRouter>
       <div className="App">
